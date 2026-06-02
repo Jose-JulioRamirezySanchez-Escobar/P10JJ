@@ -1,0 +1,24 @@
+# Levantar con:
+#   docker compose -f docker/docker-compose.yml --env-file .env up --build
+#
+# Ojo: el contexto de build apunta a la raíz del repo (..), no a docker/.
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: p10jj:dev
+    container_name: p10jj-app
+    env_file:
+      - ../.env
+    ports:
+      - "8501:8501"
+    volumes:
+      - ../data:/app/data
+      - ../logs:/app/logs
+      - chroma_data:/app/chroma
+    restart: unless-stopped
+
+volumes:
+  chroma_data:

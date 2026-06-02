@@ -1,0 +1,58 @@
+# Hooks que se ejecutan en cada `git commit`. Si alguno falla, el commit se aborta.
+#
+# Activar (una sola vez tras copiar este fichero):
+#   uv run pre-commit install
+#
+# Ejecutar manualmente contra todo el repo (útil la primera vez):
+#   uv run pre-commit run --all-files
+#
+# Actualizar a las últimas versiones de los hooks:
+#   uv run pre-commit autoupdate
+
+repos:
+  # --- Hooks generales de calidad ---
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      # Bloquea ficheros por encima del umbral. 1024 KB = 1 MB.
+      # Si necesitas commitear algo más grande puntualmente: git commit --no-verify
+      - id: check-added-large-files
+        args: ['--maxkb=1024']
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+      - id: check-yaml
+        args: ['--allow-multiple-documents']
+      - id: check-toml
+      - id: check-json
+      - id: check-case-conflict
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+
+  # --- Notebooks: limpia outputs antes del commit ---
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.9.1
+    hooks:
+      - id: nbstripout
+
+  # --- Python: lint + format con ruff ---
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.15
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # --- Secretos: detecta accidentes (claves API, tokens, etc.) ---
+  # Excluimos ficheros que generan falsos positivos sistematicamente:
+  #   - uv.lock        -> hashes SHA-256 de wheels (generados, sin riesgo)
+  #   - .env.example   -> plantilla de claves con valores vacios (sin riesgo)
+  # Si necesitas excluir mas, anade su ruta al patron regex.
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks
+        exclude: ^(uv\.lock|\.env\.example)$
+
+ci:
+  autoupdate_schedule: monthly

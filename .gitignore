@@ -1,0 +1,91 @@
+# -------- Python / uv --------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg
+*.egg-info/
+.Python
+build/
+dist/
+.eggs/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+
+# -------- Secretos / entorno --------
+.env
+.env.*
+!.env.example
+
+# -------- Datos (no versionar masivos) --------
+data/raw/*
+data/interim/*
+data/processed/*
+!data/**/.gitkeep
+!data/sample/**
+
+# -------- Jupyter --------
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+.jupyter/
+
+# -------- Streamlit --------
+.streamlit/secrets.toml
+
+# -------- LangChain / LangSmith / Chroma local --------
+.langchain/
+.langsmith/
+chroma/
+.chroma/
+
+# -------- Logs --------
+logs/*.log
+logs/*.out
+*.log
+
+# -------- VSCode / IDEs --------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.example.json
+.idea/
+
+# -------- Windows --------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# -------- Office lock files --------
+~$*
+
+# -------- macOS --------
+.DS_Store
+
+# -------- Docker --------
+.docker/
+
+# -------- HF cache local (puede pesar GB) --------
+.cache/huggingface/
+
+# Carpeta local de descargas auxiliares (zips, capturas, etc.)
+downloads/
+
+# Carpeta local de registro de eventos en texto (zips, logs, etc.)
+logs/
+
+# Carpeta local de apuntes y notas auxiliares (docxs, pdfs, pngs, txt, etc.)
+docs/briefing/
+
+# Carpeta local de issues en md.
+docs/issues/
+
+# Carpeta local de versionados.
+# Sólo útil para path seguido, en docs se nombran estos archivos.
+docs/old_versions/
