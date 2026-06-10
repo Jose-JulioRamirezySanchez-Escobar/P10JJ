@@ -89,3 +89,6 @@ docs/issues/
 # Carpeta local de versionados.
 # Sólo útil para path seguido, en docs se nombran estos archivos.
 docs/old_versions/
+
+# -------- Obsidian --------
+.obsidian/
