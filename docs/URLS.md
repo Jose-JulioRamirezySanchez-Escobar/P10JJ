@@ -1,8 +1,8 @@
 # P10JJ — Mapa de URLs
 
 > Centro de navegacion del proyecto.
-> Generado automaticamente por `scripts_sh/show_urls.20260610213728X.sh`.
-> Ultima revision: 2026-06-10
+> Generado automaticamente por `scripts_sh/show_urls.sh`.
+> Ultima revision: 2026-06-11
 
 ---
 
@@ -25,6 +25,8 @@
 - **#18** docs(design): plantilla SPEC + flujos de alto nivel (Bloques 4.0 y 4.1) — https://github.com/Jose-JulioRamirezySanchez-Escobar/P10JJ/pull/18
 - **#19** chore(repo): seed de Milestones (Bloque 4.2.a) — https://github.com/Jose-JulioRamirezySanchez-Escobar/P10JJ/pull/19
 - **#20** docs(repo): centro de navegación docs/URLS.md (Bloque 4.2.b) — https://github.com/Jose-JulioRamirezySanchez-Escobar/P10JJ/pull/20
+- **#21** chore(repo): show_urls.20260610213728X.sh genera docs/URLS.md (Bloque 4.2.c) — https://github.com/Jose-JulioRamirezySanchez-Escobar/P10JJ/pull/21
+- **#22** docs(design): SPEC v2 del Nivel Esencial — Approved (Bloque 4.3) — https://github.com/Jose-JulioRamirezySanchez-Escobar/P10JJ/pull/22
 
 ---
 
@@ -113,7 +115,6 @@
 - seed_issues.sh: https://raw.githubusercontent.com/Jose-JulioRamirezySanchez-Escobar/P10JJ/develop/scripts_sh/seed_issues.sh
 - seed_milestones.20260610144715X.sh: https://raw.githubusercontent.com/Jose-JulioRamirezySanchez-Escobar/P10JJ/develop/scripts_sh/seed_milestones.20260610144715X.sh
 - setup_project.sh: https://raw.githubusercontent.com/Jose-JulioRamirezySanchez-Escobar/P10JJ/develop/scripts_sh/setup_project.sh
-- show_urls.20260610213728X.sh: https://raw.githubusercontent.com/Jose-JulioRamirezySanchez-Escobar/P10JJ/develop/scripts_sh/show_urls.20260610213728X.sh
 - show_urls.sh: https://raw.githubusercontent.com/Jose-JulioRamirezySanchez-Escobar/P10JJ/develop/scripts_sh/show_urls.sh
 
 ### Notebooks (`notebooks/`)
@@ -134,5 +135,5 @@
 
 ---
 
-> Este archivo se regenera con `bash scripts_sh/show_urls.20260610213728X.sh`.
+> Este archivo se regenera con `bash scripts_sh/show_urls.sh`.
 > Las versiones anteriores se archivan en `docs/old_versions/` (gitignored).
