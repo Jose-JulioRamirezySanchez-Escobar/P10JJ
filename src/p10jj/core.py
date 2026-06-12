@@ -1,9 +1,9 @@
 """Core del generador de contenido P10JJ.
 
 Paso 5: carga de plantillas .md desde src/p10jj/prompts/.
+Paso 5b: validacion de tono fuera de rango (ValueError).
 
 Pendiente para pasos posteriores:
-- Validacion de tono fuera de rango (ValueError).
 - Paso 6: providers/groq.py + tenacity para reintentos + ProviderError.
 """
 
@@ -57,7 +57,13 @@ def generar(
 
     Returns:
         Texto generado en castellano, listo para publicar.
+
+    Raises:
+        ValueError: si tono esta fuera de [0.0, 1.0].
     """
+    if not 0.0 <= tono <= 1.0:
+        raise ValueError(f"tono debe estar en [0.0, 1.0], recibido: {tono}")
+
     if max_palabras is None:
         max_palabras = DEFAULTS_MAX_PALABRAS[plataforma]
 
