@@ -26,6 +26,8 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pytest>=8",
+    "pytest-cov>=5",
+    "nbval>=0.11",
     "ruff>=0.6",
     "ipdb",
     "pre-commit>=3.7",
@@ -73,3 +75,7 @@ ignore = ["E501"]
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
+markers = [
+    "integration: tests que llaman a APIs reales (Groq) y consumen cuota",
+]
+addopts = "--cov=p10jj --cov-report=term-missing"
