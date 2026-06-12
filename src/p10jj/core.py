@@ -1,14 +1,13 @@
 """Core del generador de contenido P10JJ.
 
-Versión MÍNIMA del Paso 3 del apéndice SPEC v2 — pasa el test unitario
-test_invoca_provider_y_devuelve_string sin más.
+Paso 5: carga de plantillas .md desde src/p10jj/prompts/.
 
 Pendiente para pasos posteriores:
-- Paso 4: validación de tono fuera de rango (ValueError).
-- Paso 5: cargar prompt desde plantillas .md externas en src/p10jj/prompts/.
-- Paso 6: reintentos con tenacity + ProviderError tras 3 fallos.
+- Validacion de tono fuera de rango (ValueError).
+- Paso 6: providers/groq.py + tenacity para reintentos + ProviderError.
 """
 
+from pathlib import Path
 from typing import Literal
 
 from langchain_groq import ChatGroq
@@ -27,6 +26,15 @@ DEFAULTS_MAX_PALABRAS: dict[str, int] = {
 
 # Modelo Groq centralizado: cambio unico si se deprecia el modelo
 MODEL = "llama-3.1-8b-instant"
+
+# Directorio de plantillas: src/p10jj/prompts/
+PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
+
+
+def _cargar_plantilla(plataforma: str) -> str:
+    """Lee la plantilla .md correspondiente a la plataforma indicada."""
+    ruta = PROMPTS_DIR / f"{plataforma}.md"
+    return ruta.read_text(encoding="utf-8")
 
 
 def generar(
@@ -53,14 +61,14 @@ def generar(
     if max_palabras is None:
         max_palabras = DEFAULTS_MAX_PALABRAS[plataforma]
 
-    llm = ChatGroq(model=MODEL, temperature=tono)
-
-    prompt = (
-        f"Eres un redactor especializado en {plataforma}. "
-        f"Tema: {tema}. Audiencia: {audiencia}. "
-        f"Longitud aproximada: {max_palabras} palabras. "
-        f"Genera el contenido en castellano."
+    plantilla = _cargar_plantilla(plataforma)
+    prompt = plantilla.format(
+        tema=tema,
+        audiencia=audiencia,
+        plataforma=plataforma,
+        max_palabras=max_palabras,
     )
 
+    llm = ChatGroq(model=MODEL, temperature=tono)
     response = llm.invoke(prompt)
     return response.content
