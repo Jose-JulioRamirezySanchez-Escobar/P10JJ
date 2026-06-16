@@ -2,15 +2,13 @@
 
 Paso 5: carga de plantillas .md desde src/p10jj/prompts/.
 Paso 5b: validacion de tono fuera de rango (ValueError).
-
-Pendiente para pasos posteriores:
-- Paso 6: providers/groq.py + tenacity para reintentos + ProviderError.
+Paso 6: usa p10jj.providers.groq.get_groq_llm (tenacity + ProviderError).
 """
 
 from pathlib import Path
 from typing import Literal
 
-from langchain_groq import ChatGroq
+from p10jj.providers.groq import get_groq_llm
 
 # Tipos del contrato publico (SPEC v2 seccion 5)
 Plataforma = Literal["blog", "twitter", "instagram", "linkedin"]
@@ -23,9 +21,6 @@ DEFAULTS_MAX_PALABRAS: dict[str, int] = {
     "instagram": 100,
     "twitter": 40,  # margen sobre los 280 caracteres de X
 }
-
-# Modelo Groq centralizado: cambio unico si se deprecia el modelo
-MODEL = "llama-3.1-8b-instant"
 
 # Directorio de plantillas: src/p10jj/prompts/
 PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
@@ -60,6 +55,7 @@ def generar(
 
     Raises:
         ValueError: si tono esta fuera de [0.0, 1.0].
+        ProviderError: si Groq falla tras los reintentos configurados.
     """
     if not 0.0 <= tono <= 1.0:
         raise ValueError(f"tono debe estar en [0.0, 1.0], recibido: {tono}")
@@ -75,6 +71,6 @@ def generar(
         max_palabras=max_palabras,
     )
 
-    llm = ChatGroq(model=MODEL, temperature=tono)
+    llm = get_groq_llm(temperature=tono)
     response = llm.invoke(prompt)
     return response.content
